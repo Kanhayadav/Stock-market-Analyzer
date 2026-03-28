@@ -1,7 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 
-function App() {
+export default function App() {
   const [symbol, setSymbol] = useState("AAPL");
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -14,57 +14,87 @@ function App() {
       );
       setData(res.data);
     } catch (err) {
-      console.error(err);
-      alert("Error fetching data");
+      alert("Error");
     }
     setLoading(false);
   };
 
   return (
-    <div style={{ padding: "30px", fontFamily: "Arial" }}>
-      <h1>AI Stock Analyzer 🚀</h1>
+    <div className="min-h-screen bg-gray-900 text-white p-6">
+      <h1 className="text-3xl font-bold mb-6">AI Stock Dashboard 🚀</h1>
 
-      <input
-        value={symbol}
-        onChange={(e) => setSymbol(e.target.value)}
-        placeholder="Enter Stock Symbol"
-      />
+      <div className="flex gap-3 mb-6">
+        <input
+          value={symbol}
+          onChange={(e) => setSymbol(e.target.value)}
+          className="p-2 text-black rounded"
+          placeholder="AAPL"
+        />
 
-      <button onClick={fetchData}>Analyze</button>
+        <div className="mb-6">
+          <iframe
+            src={`https://s.tradingview.com/widgetembed/?symbol=${symbol}&interval=D&theme=dark`}
+            width="100%"
+            height="300"
+          ></iframe>
+        </div>
+
+        <button
+          onClick={fetchData}
+          className="bg-gray-800 p-4 rounded-xl shadow-lg hover:scale-105 transition"
+        >
+          Analyze
+        </button>
+      </div>
 
       {loading && <p>Loading...</p>}
 
       {data && (
-        <div style={{ marginTop: "20px" }}>
-          <h2 style={{ color: data.prediction === "BUY" ? "green" : "red" }}>
-            Prediction: {data.prediction}
-          </h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
 
-          <p>Confidence: {data.confidence}%</p>
-          <p>Strength: {data.decision_strength}</p>
+          {/* Prediction */}
+          <div className="bg-gray-800 p-4 rounded-xl shadow-lg hover:scale-105 transition">
+            <h2 className={`text-xl font-bold ${data.prediction === "BUY" ? "text-green-400" : "text-red-400"}`}>
+              {data.prediction}
+            </h2>
+            <p>Confidence: {data.confidence}%</p>
+            <p>Strength: {data.decision_strength}</p>
+            <p>Confluence: {data.confluence}</p>
+          </div>
 
-          <p>Trend: {data.trend}</p>
-          <p>Market: {data.market_state}</p>
+          {/* Market */}
+          <div className="bg-gray-800 p-4 rounded-xl shadow-lg hover:scale-105 transition">
+            <p>Trend: {data.trend}</p>
+            <p>Market: {data.market_state}</p>
+            <p>Score: {data.score}</p>
+          </div>
 
-          <p>RSI: {data.rsi}</p>
-          <p>Signal: {data.signal}</p>
+          {/* RSI */}
+          <div className="bg-gray-800 p-4 rounded-xl shadow-lg hover:scale-105 transition">
+            <p>RSI: {data.rsi}</p>
+            <p>Signal: {data.signal}</p>
+          </div>
 
-          <p>Score: {data.score}</p>
-          <p>Backtest Accuracy: {data.backtest_accuracy}%</p>
+          {/* Trade Plan */}
+          <div className="bg-gray-800 p-4 rounded-xl shadow-lg hover:scale-105 transition">
+            <p>Entry: {data.trade_plan.entry}</p>
+            <p>Stop Loss: {data.trade_plan.stop_loss}</p>
+            <p>Target: {data.trade_plan.target}</p>
+          </div>
 
-          <p>Confluence: {data.confluence}</p>
-          <p>Insight: {data.insight}</p>
+          {/* Backtest */}
+          <div className="bg-gray-800 p-4 rounded-xl shadow-lg hover:scale-105 transition">
+            <p>Backtest Accuracy: {data.backtest_accuracy}%</p>
+          </div>
 
-          <h3>Reasoning:</h3>
-          <ul>
-            {data.reasoning.negative.map((r, i) => (
-              <li key={i}>{r}</li>
-            ))}
-          </ul>
+          {/* Insight */}
+          <div className="bg-gray-800 p-4 rounded-xl shadow-lg hover:scale-105 transition">
+            <h3 className="font-bold">Insight</h3>
+            <p>{data.insight}</p>
+          </div>
+
         </div>
       )}
     </div>
   );
 }
-
-export default App;
