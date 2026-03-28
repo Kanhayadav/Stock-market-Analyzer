@@ -20,7 +20,7 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-900 text-white p-6">
+    <div className="min-h-screen bg-gradient-to-br from-black via-gray-900 to-gray-800 text-white p-6">
       <h1 className="text-3xl font-bold mb-6">AI Stock Dashboard 🚀</h1>
 
       <div className="flex gap-3 mb-6">
@@ -41,8 +41,7 @@ export default function App() {
 
         <button
           onClick={fetchData}
-          className="bg-gray-800 p-4 rounded-xl shadow-lg hover:scale-105 transition"
-        >
+          className="bg-gradient-to-r from-blue-500 to-purple-600 px-4 py-2 rounded-lg"  >
           Analyze
         </button>
       </div>
@@ -53,8 +52,7 @@ export default function App() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
 
           {/* Prediction */}
-          <div className="bg-gray-800 p-4 rounded-xl shadow-lg hover:scale-105 transition">
-            <h2 className={`text-xl font-bold ${data.prediction === "BUY" ? "text-green-400" : "text-red-400"}`}>
+          <div className="bg-white/10 backdrop-blur-lg p-4 rounded-xl shadow-lg border border-white/10 hover:scale-105 transition" > <h2 className={`text-xl font-bold ${data.prediction === "BUY" ? "text-green-400" : "text-red-400"}`}>
               {data.prediction}
             </h2>
             <p>Confidence: {data.confidence}%</p>
@@ -63,34 +61,36 @@ export default function App() {
           </div>
 
           {/* Market */}
-          <div className="bg-gray-800 p-4 rounded-xl shadow-lg hover:scale-105 transition">
-            <p>Trend: {data.trend}</p>
+          <div className="bg-white/10 backdrop-blur-lg p-4 rounded-xl shadow-lg border border-white/10 hover:scale-105 transition">  <p>Trend: {data.trend}</p>
             <p>Market: {data.market_state}</p>
             <p>Score: {data.score}</p>
           </div>
 
           {/* RSI */}
-          <div className="bg-gray-800 p-4 rounded-xl shadow-lg hover:scale-105 transition">
-            <p>RSI: {data.rsi}</p>
+          <div className="bg-white/10 backdrop-blur-lg p-4 rounded-xl shadow-lg border border-white/10 hover:scale-105 transition">  <p>RSI: {data.rsi}</p>
             <p>Signal: {data.signal}</p>
           </div>
 
           {/* Trade Plan */}
-          <div className="bg-gray-800 p-4 rounded-xl shadow-lg hover:scale-105 transition">
-            <p>Entry: {data.trade_plan.entry}</p>
+          <div className="bg-white/10 backdrop-blur-lg p-4 rounded-xl shadow-lg border border-white/10 hover:scale-105 transition" > <p>Entry: {data.trade_plan.entry}</p>
             <p>Stop Loss: {data.trade_plan.stop_loss}</p>
             <p>Target: {data.trade_plan.target}</p>
           </div>
 
           {/* Backtest */}
-          <div className="bg-gray-800 p-4 rounded-xl shadow-lg hover:scale-105 transition">
-            <p>Backtest Accuracy: {data.backtest_accuracy}%</p>
+          <div className="bg-white/10 backdrop-blur-lg p-4 rounded-xl shadow-lg border border-white/10 hover:scale-105 transition">  <p>Backtest Accuracy: {data.backtest_accuracy}%</p>
           </div>
 
           {/* Insight */}
-          <div className="bg-gray-800 p-4 rounded-xl shadow-lg hover:scale-105 transition">
-            <h3 className="font-bold">Insight</h3>
+          <div className="bg-white/10 backdrop-blur-lg p-4 rounded-xl shadow-lg border border-white/10 hover:scale-105 transition" > <h3 className="font-bold">Insight</h3>
             <p>{data.insight}</p>
+          </div>
+
+          <div className="bg-gray-800 p-4 rounded-xl shadow-lg">
+            <h3 className="font-bold text-lg mb-2">AI Analysis 🤖</h3>
+            <p className="text-sm whitespace-pre-line">
+              {data.ai_analysis}
+            </p>
           </div>
 
         </div>
